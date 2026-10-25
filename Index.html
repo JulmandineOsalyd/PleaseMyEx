@@ -135,7 +135,7 @@
     .tone-selector {
       margin-top: 1rem;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 0.5rem;
     }
 
@@ -416,9 +416,8 @@
       <div class="composer">
         <textarea id="incomingMsg" placeholder="Collez le message reçu ici (reproche, nostalgie, 'tu dors ?', questions logistiques...)"></textarea>
         <div class="tone-selector">
-          <button class="tone-btn active" data-tone="ferme">Digne & Net</button>
-          <button class="tone-btn" data-tone="doux">Apaisant mais clos</button>
-          <button class="tone-btn" data-tone="factuel">Strictement factuel</button>
+          <button class="tone-btn active" data-tone="cnv">CNV apaisant et clos</button>
+          <button class="tone-btn" data-tone="connasse">Mode connasse 😈</button>
         </div>
         <button class="generate-btn" id="generateBtn">
           <span>Générer la clôture</span>
@@ -438,8 +437,7 @@
     const MODELS = [
       'nvidia/nemotron-3-ultra-550b-a55b:free',
       'google/gemma-4-31b-it:free',
-      'google/gemma-4-26b-a4b-it:free',
-      'poolside/laguna-xs-2.1:free'
+      'google/gemma-4-26b-a4b-it:free'
     ];
 
     const SYSTEM_PROMPT = `Tu es le module de réponse de « Please My Ex ».
@@ -456,10 +454,15 @@ RÈGLES D'OR ABSOLUES :
 4. Réponds UNIQUEMENT le texte du message à envoyer, sans guillemets ni formules de politesse autour.`;
 
     const TONES = {
-      ferme: "Nuance demandée : digne et net. Ton posé, sans froideur excessive.",
-      doux: "Nuance demandée : apaisant mais clos. Plus de douceur et d'empathie, sans jamais laisser de porte ouverte.",
-      factuel: "Nuance demandée : strictement factuel. Très sobre, sans émotion exprimée, une à deux phrases."
+      cnv: "Nuance demandée : CNV pure, apaisante et close. Reconnais avec douceur le ressenti de l'autre, exprime ton propre besoin de distance sans accuser ni te justifier, avec empathie et bienveillance, puis ferme la conversation sans la moindre porte ouverte.",
+      connasse: "Nuance demandée : MODE CONNASSE. Pas sympa mais drôle : ironie mordante, sarcasme, piques bien senties sur le ton d'une punchline de stand-up. Ça pique, mais ça fait rire. Ni insulte grossière, ni menace, ni attaque sur le physique ou la santé. La fermeture reste totale : aucune question, aucune relance."
     };
+
+    // En mode connasse, la règle 1 (CNV, dignité) est remplacée ; les règles de fermeture restent
+    const BATARD_RULE_1 = "1. MODE CONNASSE : le ton est sarcastique, cinglant et drôle, façon punchline. Pas de CNV, pas de compliments, pas de gentillesse. Mais jamais d'insulte grossière, de menace ni d'attaque sur le physique ou la santé.";
+    const systemFor = tone => tone === 'connasse'
+      ? SYSTEM_PROMPT.replace(/^1\. Communication Non Violente.*$/m, BATARD_RULE_1)
+      : SYSTEM_PROMPT;
 
     // Base de phrases affichées pendant l'attente, tirées au hasard et enchaînées
     const LOADING_PHRASES = [
@@ -507,7 +510,7 @@ RÈGLES D'OR ABSOLUES :
 
     const $ = id => document.getElementById(id);
     const thread = $('thread');
-    let tone = 'ferme';
+    let tone = 'cnv';
 
     function toast(msg) {
       const t = $('toast');
@@ -545,7 +548,7 @@ RÈGLES D'OR ABSOLUES :
             model: MODELS[0],
             models: MODELS,
             messages: [
-              { role: 'system', content: SYSTEM_PROMPT },
+              { role: 'system', content: systemFor(tone) },
               { role: 'user', content:
                 `${TONES[tone]}${previous ? '\nPropose une formulation différente de : ' + previous : ''}\n\nMessage reçu de l'ex :\n${message}` }
             ],
