@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Please My Ex — La fin des pourparlers</title>
+  
+  <!-- Typographies élégantes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep: #0f1115;
+      --bg-surface: #181b22;
+      --bg-bubble-ex: #20242e;
+      --bg-bubble-me: #2a232b; /* Nuance lie-de-vin sombre très subtile */
+      --border-subtle: #2d3340;
+      --text-main: #e6e8ec;
+      --text-muted: #8b92a2;
+      --accent-rose: #b87d85;
+      --accent-rose-hover: #c98e96;
+      --accent-faded: rgba(184, 125, 133, 0.15);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.5rem 1rem 4rem;
+      background-image: 
+        radial-gradient(ellipse at 50% 0%, rgba(184, 125, 133, 0.08) 0%, transparent 70%),
+        radial-gradient(circle at 80% 90%, rgba(32, 36, 46, 0.5) 0%, transparent 60%);
+    }
+
+    /* En-tête & Cœur brisé digne */
+    header {
+      text-align: center;
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 1.2rem;
+      stroke: var(--accent-rose);
+      fill: none;
+      filter: drop-shadow(0 2px 8px rgba(184, 125, 133, 0.2));
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 2.6rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: #f1f2f5;
+      margin-bottom: 0.4rem;
+    }
+
+    h1 span {
+      font-style: italic;
+      color: var(--accent-rose);
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      font-weight: 300;
+    }
+
+    /* Conteneur principal */
+    .app-container {
+      width: 100%;
+      max-width: 580px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    /* Carte de saisie */
+    .input-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .input-card label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 110px;
+      background: #11141a;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 0.9rem;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      resize: vertical;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent-rose);
+      box-shadow: 0 0 0 3px rgba(184, 125, 133, 0.15);
+    }
+
+    /* Sélecteur de nuance de clôture */
+    .tone-selector {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .tone-btn {
+      background: #13161d;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 0.55rem 0.4rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .tone-btn:hover {
+      border-color: #434c5e;
+      color: var(--text-main);
+    }
+
+    .tone-btn.active {
+      background: var(--accent-faded);
+      border-color: var(--accent-rose);
+      color: #f1d5d8;
+    }
+
+    .generate-btn {
+      width: 100%;
+      margin-top: 1.2rem;
+      background: var(--accent-rose);
+      color: #0f1115;
+      border: none;
+      padding: 0.9rem 1.4rem;
+      border-radius: 10px;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .generate-btn:hover {
+      background: var(--accent-rose-hover);
+    }
+
+    .generate-btn:active {
+      transform: scale(0.99);
+    }
+
+    /* Interface façon WhatsApp sombre / raffinée */
+    .chat-preview {
+      background: #12141a;
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 1.6rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      min-height: 220px;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .chat-date {
+      text-align: center;
+      font-size: 0.72rem;
+      color: #636b7b;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    .bubble-wrapper {
+      display: flex;
+      flex-direction: column;
+      max-width: 82%;
+    }
+
+    .bubble-wrapper.ex {
+      align-self: flex-start;
+    }
+
+    .bubble-wrapper.me {
+      align-self: flex-end;
+    }
+
+    .bubble {
+      padding: 0.85rem 1.1rem;
+      border-radius: 14px;
+      font-size: 0.92rem;
+      line-height: 1.48;
+      position: relative;
+      word-break: break-word;
+    }
+
+    .bubble.ex {
+      background-color: var(--bg-bubble-ex);
+      color: #d1d5db;
+      border-bottom-left-radius: 3px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .bubble.me {
+      background-color: var(--bg-bubble-me);
+      color: #f7eef0;
+      border-bottom-right-radius: 3px;
+      border: 1px solid rgba(184, 125, 133, 0.25);
+    }
+
+    .bubble-meta {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .ticks {
+      stroke: var(--accent-rose);
+      stroke-width: 2;
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+    }
+
+    /* Actions sous la réponse */
+    .chat-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.6rem;
+      margin-top: 0.4rem;
+    }
+
+    .action-btn {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .action-btn:hover {
+      border-color: var(--accent-rose);
+      color: var(--text-main);
+    }
+
+    .action-btn.copied {
+      background: var(--accent-rose);
+      color: #000;
+      border-color: var(--accent-rose);
+    }
+
+    .key-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 0.8rem 1.2rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .key-card summary { cursor: pointer; }
+    .key-row { display: flex; gap: 0.5rem; margin-top: 0.8rem; }
+    .key-row input {
+      flex: 1;
+      background: #11141a;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.5rem 0.7rem;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+    }
+    .key-note { margin-top: 0.5rem; font-size: 0.72rem; }
+
+    /* Notification discrète */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      background: #252a36;
+      border: 1px solid var(--accent-rose);
+      color: #fff;
+      font-size: 0.82rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Conversation unique façon messagerie */
+    .chat-card {
+      background: #12141a;
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .thread {
+      padding: 1.4rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      min-height: 200px;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+    .thread-empty {
+      margin: auto;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #636b7b;
+      line-height: 1.6;
+    }
+    .composer {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      padding: 1rem 1.2rem 1.2rem;
+    }
+    .composer textarea { min-height: 70px; }
+    .composer .tone-selector { margin-top: 0.7rem; }
+    .typing {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+    .typing-text { transition: opacity 0.25s; }
+    .dots { display: inline-flex; gap: 3px; }
+    .dots i {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent-rose);
+      animation: blink 1.2s infinite;
+    }
+    .dots i:nth-child(2) { animation-delay: 0.2s; }
+    .dots i:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink { 0%, 80%, 100% { opacity: 0.2; } 40% { opacity: 1; } }
+    .bubble.error { border-color: #b85555; color: #f1c4c4; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <svg class="brand-icon" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+      <path d="M12 6l-2 4l3 3l-2 4" stroke-dasharray="1 1" />
+    </svg>
+    <h1>Please <span>My Ex</span></h1>
+    <p class="subtitle">Pas de venin. Pas de relance. Juste le point final.</p>
+  </header>
+
+  <main class="app-container">
+    <section class="chat-card">
+      <div class="thread" id="thread">
+        <div class="thread-empty" id="threadEmpty">Aucun message pour l'instant.<br>Collez ci-dessous ce que votre ex vous a écrit.</div>
+      </div>
+
+      <div class="composer">
+        <textarea id="incomingMsg" placeholder="Collez le message reçu ici (reproche, nostalgie, 'tu dors ?', questions logistiques...)"></textarea>
+        <div class="tone-selector">
+          <button class="tone-btn active" data-tone="ferme">Digne & Net</button>
+          <button class="tone-btn" data-tone="doux">Apaisant mais clos</button>
+          <button class="tone-btn" data-tone="factuel">Strictement factuel</button>
+        </div>
+        <button class="generate-btn" id="generateBtn">
+          <span>Générer la clôture</span>
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast">Copié dans le presse-papier</div>
+
+  <script>
+    // Clé de test OpenRouter (en dur, volontairement)
+    const API_KEY = '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';
+    // Modèles gratuits de conversation, essayés dans l'ordre par OpenRouter en cas d'échec
+    // (on évite le routeur "openrouter/free", qui peut tomber sur un modèle de modération)
+    const MODELS = [
+      'nvidia/nemotron-3-ultra-550b-a55b:free',
+      'google/gemma-4-31b-it:free',
+      'google/gemma-4-26b-a4b-it:free',
+      'poolside/laguna-xs-2.1:free'
+    ];
+
+    const SYSTEM_PROMPT = `Tu es le module de réponse de « Please My Ex ».
+Ton rôle exclusif est de générer UNE réponse par SMS au message reçu d'un(e) ex-partenaire.
+
+RÈGLES D'OR ABSOLUES :
+1. Communication Non Violente (CNV) : valide le ressenti de l'autre sans t'auto-flageller, exprime ton besoin de distance, reste digne, sobre et impassible.
+2. FERMETURE TOTALE DE CONVERSATION :
+   - Strictement AUCUN point d'interrogation.
+   - Strictement AUCUNE relance ("et toi ?", "dis-moi si...", "j'espère qu'on pourra").
+   - Strictement AUCUNE porte entrouverte temporelle ("pas pour l'instant", "on en reparlera plus tard", "à bientôt").
+   - Clôture définitive avec politesse mesurée ("Prends soin de toi", "Bonne continuation", "Belle route").
+3. Longueur : 1 à 3 phrases courtes maximum. Pas de grand monologue justificatif.
+4. Réponds UNIQUEMENT le texte du message à envoyer, sans guillemets ni formules de politesse autour.`;
+
+    const TONES = {
+      ferme: "Nuance demandée : digne et net. Ton posé, sans froideur excessive.",
+      doux: "Nuance demandée : apaisant mais clos. Plus de douceur et d'empathie, sans jamais laisser de porte ouverte.",
+      factuel: "Nuance demandée : strictement factuel. Très sobre, sans émotion exprimée, une à deux phrases."
+    };
+
+    // Base de phrases affichées pendant l'attente, tirées au hasard et enchaînées
+    const LOADING_PHRASES = [
+      "Essaie de ne pas être une connasse…",
+      "Respire un bon coup avant de répondre…",
+      "Range la rancune au fond du tiroir…",
+      "Cherche un synonyme poli à « va te faire voir »…",
+      "Relit le message trois fois sans lever les yeux au ciel…",
+      "Efface la version où on lui renvoie ses cartons…",
+      "Consulte son thérapeute imaginaire…",
+      "Compte jusqu'à dix, puis jusqu'à vingt…",
+      "Transforme un reproche en besoin non satisfait…",
+      "Supprime tous les points d'interrogation en douce…",
+      "Enfile son plus beau costume de personne zen…",
+      "Remplace « tu es insupportable » par « je ressens de la distance »…",
+      "Boit une gorgée de tisane émotionnellement stable…",
+      "Résiste à l'envie de répondre à 3 h du matin…",
+      "Rédige avec la dignité d'un cygne qui nage vite en dessous…",
+      "Évite soigneusement de dire « pour info »…",
+      "Tourne sept fois ses doigts avant d'écrire…",
+      "Pèse chaque mot sur une balance de pharmacien…",
+      "Cherche la sortie de secours la plus élégante…",
+      "Fait semblant de ne pas avoir vu qu'il/elle écrit encore…",
+      "Convoque la sagesse de ses ancêtres et celle de Marie Kondo…",
+      "Dépoussière les mots « bonne continuation »…",
+      "Jette un dernier regard à la photo de vacances, puis la supprime…",
+      "Laisse passer l'orage dans sa tête…",
+      "Évite de répondre « k »…",
+      "Se rappelle pourquoi c'est fini…",
+      "Met le cœur en mode avion…",
+      "Fait taire la petite voix qui dit « et si… »…",
+      "Peaufine un point final bien net…",
+      "Prépare un chef-d'œuvre de non-violence passive-assumée…",
+      "Négocie avec son ego, il lâche du lest…",
+      "Se retient d'envoyer un gif de Beyoncé…",
+      "Trie les sentiments : à garder, à jeter, à ne jamais envoyer…",
+      "Emprunte la voix calme d'un guide de méditation…",
+      "Vérifie que la porte est bien fermée, à clé, avec un cadenas…",
+      "Remonte ses manches pour un adieu sans accroc…",
+      "Résiste à la tentation du « ok, boomer de l'amour »…",
+      "Fait coucou à son futur soi, plus serein…",
+      "Aligne les chakras et les virgules…",
+      "Ajoute juste ce qu'il faut de politesse, pas une goutte de plus…"
+    ];
+
+    const $ = id => document.getElementById(id);
+    const thread = $('thread');
+    let tone = 'ferme';
+
+    function toast(msg) {
+      const t = $('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    document.querySelectorAll('.tone-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tone-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        tone = btn.dataset.tone;
+      });
+    });
+
+    // Le prompt interdit tout "?" ; on nettoie au cas où le modèle déroge
+    function sanitize(text) {
+      const s = text.trim().replace(/^["«»\s]+|["«»\s]+$/g, '');
+      return s.replace(/\s*\?+/g, '.').replace(/\.{2,}/g, '.');
+    }
+
+    async function callAI(message, tone, previous) {
+      if (!API_KEY || API_KEY.startsWith('COLLEZ_ICI')) throw new Error('Clé API absente : renseignez API_KEY dans Index.html.');
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), 45000);
+      let res;
+      try {
+        res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          signal: ctl.signal,
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${API_KEY}` },
+          body: JSON.stringify({
+            model: MODELS[0],
+            models: MODELS,
+            messages: [
+              { role: 'system', content: SYSTEM_PROMPT },
+              { role: 'user', content:
+                `${TONES[tone]}${previous ? '\nPropose une formulation différente de : ' + previous : ''}\n\nMessage reçu de l'ex :\n${message}` }
+            ],
+            temperature: previous ? 1.0 : 0.7,
+            max_tokens: 500
+          })
+        });
+      } catch (e) {
+        if (e.name === 'AbortError') throw new Error('Pas de réponse d\'OpenRouter après 45 secondes. Réessayez.');
+        throw new Error('Connexion impossible à OpenRouter : ' + e.message);
+      } finally {
+        clearTimeout(timer);
+      }
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.error) {
+        const err = new Error(data.error?.message || `Erreur API (${res.status})`);
+        err.retryable = [429, 502, 503].includes(res.status) || [429, 502, 503].includes(data.error?.code);
+        throw err;
+      }
+      const text = data.choices?.[0]?.message?.content || '';
+      if (!text.trim()) {
+        const err = new Error('Réponse vide du modèle, réessayez.');
+        err.retryable = true;
+        throw err;
+      }
+      return sanitize(text);
+    }
+
+    async function callWithRetry(message, tone, previous, onRetry) {
+      for (let attempt = 1; ; attempt++) {
+        try {
+          return await callAI(message, tone, previous);
+        } catch (err) {
+          if (!err.retryable || attempt >= 3) throw err;
+          onRetry(attempt);
+          await new Promise(r => setTimeout(r, attempt * 3000));
+        }
+      }
+    }
+
+    // --- Construction des messages -----------------------------------
+    const nowLabel = () => new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+    function addExBubble(text) {
+      const w = document.createElement('div');
+      w.className = 'bubble-wrapper ex';
+      const b = document.createElement('div');
+      b.className = 'bubble ex';
+      b.textContent = text;
+      const meta = document.createElement('div');
+      meta.className = 'bubble-meta';
+      meta.innerHTML = `<span>Ex · ${nowLabel()}</span>`;
+      w.append(b, meta);
+      thread.appendChild(w);
+      return w;
+    }
+
+    function addMeWrapper() {
+      const w = document.createElement('div');
+      w.className = 'bubble-wrapper me';
+      thread.appendChild(w);
+      return w;
+    }
+
+    function scrollDown() { thread.scrollTop = thread.scrollHeight; }
+
+    // Phrases de chargement qui s'enchaînent, sans répétition tant que possible
+    function startLoadingPhrases(el) {
+      let pool = [];
+      const next = () => {
+        if (!pool.length) pool = [...LOADING_PHRASES].sort(() => Math.random() - 0.5);
+        return pool.pop();
+      };
+      el.textContent = next();
+      const id = setInterval(() => {
+        el.style.opacity = 0;
+        setTimeout(() => { el.textContent = next(); el.style.opacity = 1; }, 250);
+      }, 2200);
+      return () => clearInterval(id);
+    }
+
+    function showTyping(wrapper) {
+      wrapper.innerHTML = `<div class="bubble me typing"><span class="typing-text"></span><span class="dots"><i></i><i></i><i></i></span></div>`;
+      const stop = startLoadingPhrases(wrapper.querySelector('.typing-text'));
+      scrollDown();
+      return stop;
+    }
+
+    function showReply(wrapper, reply, ctx) {
+      wrapper.innerHTML = '';
+      const b = document.createElement('div');
+      b.className = 'bubble me';
+      b.textContent = reply;
+      const meta = document.createElement('div');
+      meta.className = 'bubble-meta';
+      meta.innerHTML = `<span>${nowLabel()}</span><svg class="ticks" viewBox="0 0 24 24" fill="none"><path d="M4 12l4 4L18 6M9 12l3 3L22 5" stroke="currentColor" stroke-linecap="round"/></svg>`;
+      const actions = document.createElement('div');
+      actions.className = 'chat-actions';
+      actions.innerHTML = `
+        <button class="action-btn" data-act="cycle" title="Essayer une autre formulation sans relance">Variante</button>
+        <button class="action-btn" data-act="copy">Copier</button>`;
+      actions.querySelector('[data-act="cycle"]').addEventListener('click', () => produce(wrapper, ctx, reply));
+      actions.querySelector('[data-act="copy"]').addEventListener('click', async e => {
+        try {
+          await navigator.clipboard.writeText(reply);
+          e.target.classList.add('copied');
+          toast('Copié dans le presse-papier');
+          setTimeout(() => e.target.classList.remove('copied'), 1500);
+        } catch { toast('Copie impossible'); }
+      });
+      wrapper.append(b, meta, actions);
+      scrollDown();
+    }
+
+    function showError(wrapper, message, ctx) {
+      wrapper.innerHTML = '';
+      const b = document.createElement('div');
+      b.className = 'bubble me error';
+      b.textContent = message;
+      const actions = document.createElement('div');
+      actions.className = 'chat-actions';
+      actions.innerHTML = '<button class="action-btn">Réessayer</button>';
+      actions.firstElementChild.addEventListener('click', () => produce(wrapper, ctx, null));
+      wrapper.append(b, actions);
+      scrollDown();
+    }
+
+    // Génère (ou régénère) la réponse dans la bulle donnée
+    async function produce(wrapper, ctx, previous) {
+      const stop = showTyping(wrapper);
+      try {
+        const reply = await callWithRetry(ctx.message, ctx.tone, previous, () => toast('Modèles gratuits occupés, nouvel essai…'));
+        stop();
+        showReply(wrapper, reply, ctx);
+      } catch (e) {
+        stop();
+        showError(wrapper, e.message, ctx);
+      }
+    }
+
+    function send() {
+      const message = $('incomingMsg').value.trim();
+      if (!message) { toast('Collez d\'abord le message reçu'); return; }
+      $('threadEmpty')?.remove();
+      addExBubble(message);
+      const wrapper = addMeWrapper();
+      $('incomingMsg').value = '';
+      produce(wrapper, { message, tone }, null);
+    }
+
+    $('generateBtn').addEventListener('click', send);
+    $('incomingMsg').addEventListener('keydown', e => {
+      if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) send();
+    });
+  </script>
+</body>
+</html>
